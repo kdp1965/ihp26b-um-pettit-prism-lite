@@ -73,10 +73,10 @@ VERILOG_SOURCES += $(PDK_ROOT)/ihp-sg13g2/libs.ref/sg13g2_stdcell/verilog/sg13g2
 # this gets copied in by the GDS action workflow
 #VERILOG_SOURCES += ../runs/wokwi/results/placement/tt_um_pettit_prism_lite.pnl.v
 VERILOG_SOURCES += $(PWD)/gate_level_netlist.v
-# The CFGMEM macros are black boxes in the tile netlist: add their powered
-# netlists (from DFFRAM.librelane products/<macro>/pnl).
-VERILOG_SOURCES += $(PWD)/../macros/CFGMEM_IHP16/CFGMEM_IHP16.pnl.v
-VERILOG_SOURCES += $(PWD)/../macros/CFGMEM_IHP_LEFT16/CFGMEM_IHP_LEFT16.pnl.v
+# The CFGMEM macros are black boxes in the tile netlist: add their netlists
+# (no power ports, like the tile netlist and the sg13g2 cell models).
+VERILOG_SOURCES += $(PWD)/../macros/CFGMEM_IHP16/CFGMEM_IHP16.nl.v
+VERILOG_SOURCES += $(PWD)/../macros/CFGMEM_IHP_LEFT16/CFGMEM_IHP_LEFT16.nl.v
 
 endif
 
