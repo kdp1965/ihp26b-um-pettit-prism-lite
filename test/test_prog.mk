@@ -13,6 +13,14 @@ PROJECT_SOURCES = project.v peri*.v tinyQV/cpu/*.v tinyQV/peri/uart/uart_tx.v us
 VERILOG_SOURCES += sim_qspi.v
 COMPILE_ARGS +=  -DPROG_FILE=\"$(PROG_FILE)\"
 
+# The PRISM's SRAM FIFOs: how many (0/1/2) and their address width.  The
+# tests read PRISM_SRAM_FIFO from the environment as well (the ones that
+# need a FIFO are skipped when there is none), so it is set and exported
+# outside the RTL / gate-level branches.
+PRISM_SRAM_AW ?= 9
+PRISM_SRAM_FIFO ?= 0
+export PRISM_SRAM_FIFO
+
 ifneq ($(GATES),yes)
 
 ifneq ($(SYNTH),yes)
@@ -28,11 +36,6 @@ VERILOG_SOURCES += $(SRAM_MODEL_DIR)/RM_IHPSG13_1P_2048x32_c2_bm_bist.v
 VERILOG_SOURCES += $(SRAM_MODEL_DIR)/RM_IHPSG13_1P_1024x32_c2_bm_bist.v
 VERILOG_SOURCES += $(SRAM_MODEL_DIR)/RM_IHPSG13_1P_512x32_c2_bm_bist.v
 COMPILE_ARGS 		+= -DFUNCTIONAL
-PRISM_SRAM_AW ?= 9
-# The lite tile has no SRAM FIFOs (PRISM_SRAM_FIFO=0 in src/config.json); the
-# tests read the value from the environment and skip the SRAM-dependent ones
-PRISM_SRAM_FIFO ?= 0
-export PRISM_SRAM_FIFO
 COMPILE_ARGS 		+= -DPRISM_SRAM_AW=$(PRISM_SRAM_AW) -DPRISM_SRAM_FIFO=$(PRISM_SRAM_FIFO)
 COMPILE_ARGS 		+= -DPURE_RTL
 COMPILE_ARGS 		+= -I$(SRC_DIR)

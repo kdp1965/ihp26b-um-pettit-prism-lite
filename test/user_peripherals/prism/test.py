@@ -12,6 +12,9 @@ import cocotb
 # FIFOs: the tests that stream from them, trace into them or read the constant
 # table through them are skipped there.
 NO_SRAM = os.environ.get("PRISM_SRAM_FIFO", "2") == "0"
+# A gate-level netlist has no design hierarchy: the tests that probe internal
+# signals (SamplerTest, Timer2Test, TraceMonitor) cannot run on it.
+GATE_LEVEL = os.environ.get("GATES") == "yes"
 
 from user_peripherals.prism.bench import PrismBench
 from user_peripherals.prism.prism_tests import (
@@ -87,11 +90,11 @@ async def test_ethernet_loop(dut):
 async def test_fractured(dut):
     await run(dut, FracturedTest)
 
-@cocotb.test(skip=NO_SRAM)
+@cocotb.test(skip=NO_SRAM or GATE_LEVEL)
 async def test_trace(dut):
     await run(dut, TraceTest)
 
-@cocotb.test()
+@cocotb.test(skip=GATE_LEVEL)
 async def test_timer2(dut):
     await run(dut, Timer2Test)
 
@@ -103,7 +106,7 @@ async def test_const_table(dut):
 async def test_i2c_master(dut):
     await run(dut, I2cMasterTest)
 
-@cocotb.test()
+@cocotb.test(skip=GATE_LEVEL)
 async def test_sampler(dut):
     await run(dut, SamplerTest)
 
