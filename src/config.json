@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "flow": "Classic",
+    "substituting_steps": {
+      "+Odb.ManualMacroPlacement": "Project.MouthKeepouts",
+      "+OpenROAD.GeneratePDN": "Project.ExtendPowerStripes"
+    }
+  },
+  "PL_TARGET_DENSITY_PCT": 70,
+  "//pdn": "Tiny Tapeout sg13g2 tile PDN: single layer (TopMetal1 vertical stripes, pitch 38.87 as in the ttihp-verilog-template config); pdn_cfg.tcl is LibreLane's without the per-macro grid (PDN-0233 with one layer), ERROR_ON_PDN_VIOLATIONS off because pdngen's check runs before the stripe step bridges the macro pins - LVS is the verdict",
+  "FP_PDN_MULTILAYER": 0,
+  "FP_PDN_VPITCH": 38.87,
+  "PDN_CFG": "dir::pdn_cfg.tcl",
+  "ERROR_ON_PDN_VIOLATIONS": 0,
+  "EXTEND_STRIPES_LAYER": "TopMetal1",
+  "CLOCK_PERIOD": 14,
+  "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
+  "GRT_RESIZER_HOLD_SLACK_MARGIN": 0.05,
+  "RUN_LINTER": 1,
+  "LINTER_INCLUDE_PDK_MODELS": 1,
+  "SYNTH_STRATEGY": "AREA 0",
+  "USE_LIGHTER": 0,
+  "FALLBACK_SDC_FILE": "src/base.sdc",
+  "DESIGN_REPAIR_MAX_SLEW_PCT": 25,
+  "DESIGN_REPAIR_REMOVE_BUFFERS": 1,
+  "//": "Heuristic diodes off since run 20 (they were a third of all cells and crowded the CFGMEM pin corners); the rule-based repair in the routing loop stays on",
+  "RUN_HEURISTIC_DIODE_INSERTION": 0,
+  "RUN_ANTENNA_REPAIR": 1,
+  "HEURISTIC_ANTENNA_THRESHOLD": 200,
+  "//": "Post-route antenna repair rounds: the default 3 left two Metal3 nets over ratio 200 on run koA (see docs 4z.7)",
+  "DRT_ANTENNA_REPAIR_ITERS": 6,
+  "CLOCK_PORT": "clk",
+  "RUN_KLAYOUT_XOR": 0,
+  "RUN_KLAYOUT_DRC": 1,
+  "DESIGN_REPAIR_BUFFER_OUTPUT_PORTS": 0,
+  "TOP_MARGIN_MULT": 1,
+  "BOTTOM_MARGIN_MULT": 1,
+  "LEFT_MARGIN_MULT": 6,
+  "RIGHT_MARGIN_MULT": 6,
+  "FP_SIZING": "absolute",
+  "GRT_ALLOW_CONGESTION": 1,
+  "//": "A DRC report every 4 detailed-routing iterations, so tools/drt_status.py can show where a stalled route is stuck (and make harden-stop can end it)",
+  "DRT_SAVE_DRC_REPORT_ITERS": 4,
+  "FP_IO_HLENGTH": 2,
+  "FP_IO_VLENGTH": 2,
+  "RUN_CTS": 1,
+  "//": "Placement keep-outs (soft, density cap) in the rows outside each CFGMEM column's tile-facing edge at the pair gaps: every stalled route died there (see docs 4z.6)",
+  "MOUTH_KEEPOUT_WIDTH": 60,
+  "MOUTH_KEEPOUT_MARGIN": 20,
+  "MOUTH_KEEPOUT_MAX_DENSITY": 0.25,
+  "MOUTH_KEEPOUT_INWARD": 0,
+  "MAGIC_DEF_LABELS": 0,
+  "MAGIC_WRITE_LEF_PINONLY": 1,
+  "FP_MACRO_HORIZONTAL_HALO": 2.0,
+  "FP_MACRO_VERTICAL_HALO": 0.48,
+  "EXTRA_VERILOG_MODELS": [
+    "src/user_peripherals/cfgmem/cfgmem.v",
+    "src/user_peripherals/cfgmem/cfgmem_left.v"
+  ],
+  "MACROS": {
+    "CFGMEM_IHP_LEFT16": {
+      "instances": {
+        "i_peripherals.CFGMEMS_LEFT[0].cfgmem_lo": {
+          "location": [2.88, 3.78],
+          "orientation": "FS"
+        },
+        "i_peripherals.CFGMEMS_LEFT[0].cfgmem_hi": {
+          "location": [2.88, 257.04],
+          "orientation": "N"
+        },
+        "i_peripherals.CFGMEMS_LEFT[1].cfgmem_lo": {
+          "location": [2.88, 366.66],
+          "orientation": "FS"
+        },
+        "i_peripherals.CFGMEMS_LEFT[1].cfgmem_hi": {
+          "location": [2.88, 619.92],
+          "orientation": "N"
+        }
+      },
+      "gds": ["macros/CFGMEM_IHP_LEFT16/CFGMEM_IHP_LEFT16.gds"],
+      "lef": ["macros/CFGMEM_IHP_LEFT16/CFGMEM_IHP_LEFT16.lef"],
+      "nl": ["macros/CFGMEM_IHP_LEFT16/CFGMEM_IHP_LEFT16.nl.v"],
+      "spef": {
+        "nom_*": ["macros/CFGMEM_IHP_LEFT16/spef/CFGMEM_IHP_LEFT16.nom.spef"]
+      },
+      "lib": {
+        "nom_typ_1p20V_25C": ["macros/CFGMEM_IHP_LEFT16/lib/CFGMEM_IHP_LEFT16__nom_typ_1p20V_25C.lib"],
+        "nom_fast_1p32V_m40C": ["macros/CFGMEM_IHP_LEFT16/lib/CFGMEM_IHP_LEFT16__nom_fast_1p32V_m40C.lib"],
+        "nom_slow_1p08V_125C": ["macros/CFGMEM_IHP_LEFT16/lib/CFGMEM_IHP_LEFT16__nom_slow_1p08V_125C.lib"]
+      }
+    },
+    "CFGMEM_IHP16": {
+      "instances": {
+        "i_peripherals.CFGMEMS[2].cfgmem_lo": {
+          "location": [737.76, 3.78],
+          "orientation": "FS"
+        },
+        "i_peripherals.CFGMEMS[2].cfgmem_hi": {
+          "location": [737.76, 257.04],
+          "orientation": "N"
+        },
+        "i_peripherals.CFGMEMS[3].cfgmem_lo": {
+          "location": [737.76, 366.66],
+          "orientation": "FS"
+        },
+        "i_peripherals.CFGMEMS[3].cfgmem_hi": {
+          "location": [737.76, 619.92],
+          "orientation": "N"
+        }
+      },
+      "gds": ["macros/CFGMEM_IHP16/CFGMEM_IHP16.gds"],
+      "lef": ["macros/CFGMEM_IHP16/CFGMEM_IHP16.lef"],
+      "nl": ["macros/CFGMEM_IHP16/CFGMEM_IHP16.nl.v"],
+      "spef": {
+        "nom_*": ["macros/CFGMEM_IHP16/spef/CFGMEM_IHP16.nom.spef"]
+      },
+      "lib": {
+        "nom_typ_1p20V_25C": ["macros/CFGMEM_IHP16/lib/CFGMEM_IHP16__nom_typ_1p20V_25C.lib"],
+        "nom_fast_1p32V_m40C": ["macros/CFGMEM_IHP16/lib/CFGMEM_IHP16__nom_fast_1p32V_m40C.lib"],
+        "nom_slow_1p08V_125C": ["macros/CFGMEM_IHP16/lib/CFGMEM_IHP16__nom_slow_1p08V_125C.lib"]
+      }
+    }
+  },
+  "PDN_MACRO_CONNECTIONS": [
+    "i_peripherals\\.CFGMEMS_LEFT\\\\?\\[0\\\\?\\]\\.cfgmem_lo VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS_LEFT\\\\?\\[0\\\\?\\]\\.cfgmem_hi VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS_LEFT\\\\?\\[1\\\\?\\]\\.cfgmem_lo VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS_LEFT\\\\?\\[1\\\\?\\]\\.cfgmem_hi VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS\\\\?\\[2\\\\?\\]\\.cfgmem_lo VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS\\\\?\\[2\\\\?\\]\\.cfgmem_hi VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS\\\\?\\[3\\\\?\\]\\.cfgmem_lo VPWR VGND VPWR VGND",
+    "i_peripherals\\.CFGMEMS\\\\?\\[3\\\\?\\]\\.cfgmem_hi VPWR VGND VPWR VGND"
+  ],
+  "MAX_TRANSITION_CONSTRAINT": 0.75,
+  "MAX_FANOUT_CONSTRAINT": 8,
+  "PNR_CORNERS": ["nom_typ_1p20V_25C", "nom_slow_1p08V_125C"],
+  "VERILOG_DEFINES": ["PRISM_SRAM_AW=9", "PRISM_SRAM_FIFO=0", "IHP_SG13G2"],
+  "RUN_MAGIC_DRC": 0,
+  "KLAYOUT_DRC_RUNSET": "pdk_dir::libs.tech/klayout/tech/drc/ihp-sg13g2.drc",
+  "//layout": "5x4 ihp-sg13g2 tile (1071.84 x 710.64), no SRAM FIFOs. Single-layer PDN like the Tiny Tapeout sg13g2 template (TopMetal1 vertical stripes, pitch 38.87, PDK width 2.2 / spacing 4.0 / offset 13.6 -> VPWR centres at 16.48 + 38.87k; TopMetal2 is a forbidden layer for projects). The CFGMEM macros are built with the same pitch and an offset that puts their TopMetal1 rails on the tile stripes when LEFT16 sits at x 2.88 (offset 12.16) and IHP16 at x 737.76 (offset 15.81, flush against the core's right edge at 1068.96); Project.ExtendPowerStripes then runs the tile stripes across the macros. Data pins Di0/Do0 on Metal4, the rest on Metal3/Metal2.",
+  "PL_RESIZER_SETUP_SLACK_MARGIN": 0.25,
+  "DIODE_PADDING": 2,
+  "DPL_CELL_PADDING": 2,
+  "//": "DPL_CELL_PADDING 2 pads only the antenna diodes: every other cell class is excluded (padding all cells made the left-column pin-row strip worse in run 21, 633 -> 1000+ violations in its hottest bin)",
+  "CELL_PAD_EXCLUDE": [
+    "CFGMEM*",
+    "sg13g2_a2*",
+    "sg13g2_and*",
+    "sg13g2_buf*",
+    "sg13g2_decap*",
+    "sg13g2_dfrbp*",
+    "sg13g2_dlhq*",
+    "sg13g2_dlhr*",
+    "sg13g2_dllr*",
+    "sg13g2_dlygate*",
+    "sg13g2_ebufn*",
+    "sg13g2_einvn*",
+    "sg13g2_fill*",
+    "sg13g2_inv*",
+    "sg13g2_lgcp*",
+    "sg13g2_mux*",
+    "sg13g2_nand*",
+    "sg13g2_nor*",
+    "sg13g2_o*",
+    "sg13g2_sdfbbp*",
+    "sg13g2_sdfrbp*",
+    "sg13g2_sighold*",
+    "sg13g2_slgcp*",
+    "sg13g2_tiehi*",
+    "sg13g2_tielo*",
+    "sg13g2_xnor*",
+    "sg13g2_xor*"
+  ]
+}
