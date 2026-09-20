@@ -3,7 +3,8 @@
     "flow": "Classic",
     "substituting_steps": {
       "+Odb.ManualMacroPlacement": "Project.MouthKeepouts",
-      "+OpenROAD.GeneratePDN": "Project.ExtendPowerStripes"
+      "+OpenROAD.GeneratePDN": "Project.ExtendPowerStripes",
+      "+Checker.TrDRC": "Project.DropKeepouts"
     }
   },
   "PL_TARGET_DENSITY_PCT": 70,
@@ -45,7 +46,7 @@
   "FP_IO_VLENGTH": 2,
   "RUN_CTS": 1,
   "//": "Placement keep-outs (soft, density cap) in the rows outside each CFGMEM column's tile-facing edge at the pair gaps: every stalled route died there (see docs 4z.6)",
-  "MOUTH_KEEPOUT_WIDTH": 60,
+  "MOUTH_KEEPOUT_WIDTH": 30,
   "MOUTH_KEEPOUT_MARGIN": 20,
   "MOUTH_KEEPOUT_MAX_DENSITY": 0.25,
   "MOUTH_KEEPOUT_INWARD": 0,
