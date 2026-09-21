@@ -50,6 +50,8 @@
   "MOUTH_KEEPOUT_MARGIN": 20,
   "MOUTH_KEEPOUT_MAX_DENSITY": 0.25,
   "MOUTH_KEEPOUT_INWARD": 0,
+  "MOUTH_KEEPOUT_GAPS": "1,2",
+  "//keepout_gaps": "Gap 0 of each column is the lower macro pair's channel (y 91-257); no route has ever knotted there, so it gets no keep-out and the rows stay open for cells. Gap 1 is the slot between the pairs, gap 2 the upper pair's channel.",
   "MAGIC_DEF_LABELS": 0,
   "MAGIC_WRITE_LEF_PINONLY": 1,
   "FP_MACRO_HORIZONTAL_HALO": 2.0,
