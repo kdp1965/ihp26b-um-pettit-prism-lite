@@ -137,7 +137,8 @@
   "MAX_TRANSITION_CONSTRAINT": 0.75,
   "MAX_FANOUT_CONSTRAINT": 8,
   "PNR_CORNERS": ["nom_typ_1p20V_25C", "nom_slow_1p08V_125C"],
-  "VERILOG_DEFINES": ["PRISM_SRAM_AW=9", "PRISM_SRAM_FIFO=0", "IHP_SG13G2"],
+  "VERILOG_DEFINES": [
+    "PRISM_FIFO_AW=5","PRISM_SRAM_AW=9", "PRISM_SRAM_FIFO=0", "IHP_SG13G2"],
   "RUN_MAGIC_DRC": 0,
   "KLAYOUT_DRC_RUNSET": "pdk_dir::libs.tech/klayout/tech/drc/ihp-sg13g2.drc",
   "//layout": "5x4 ihp-sg13g2 tile (1071.84 x 710.64), no SRAM FIFOs. Single-layer PDN like the Tiny Tapeout sg13g2 template (TopMetal1 vertical stripes, pitch 38.87, PDK width 2.2 / spacing 4.0 / offset 13.6 -> VPWR centres at 16.48 + 38.87k; TopMetal2 is a forbidden layer for projects). The CFGMEM macros are built with the same pitch and an offset that puts their TopMetal1 rails on the tile stripes when LEFT16 sits at x 2.88 (offset 12.16) and IHP16 at x 737.76 (offset 15.81, flush against the core's right edge at 1068.96); Project.ExtendPowerStripes then runs the tile stripes across the macros. Data pins Di0/Do0 on Metal4, the rest on Metal3/Metal2.",

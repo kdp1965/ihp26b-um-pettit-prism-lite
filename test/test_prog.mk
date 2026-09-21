@@ -21,7 +21,7 @@ PRISM_SRAM_AW ?= 9
 PRISM_SRAM_FIFO ?= 0
 export PRISM_SRAM_FIFO
 # Flop FIFO depth, log2 bytes (6 = 64, 5 = 32); the tests scale to it
-PRISM_FIFO_AW ?= 6
+PRISM_FIFO_AW ?= 5
 export PRISM_FIFO_AW
 
 ifneq ($(GATES),yes)
